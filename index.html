@@ -34,34 +34,35 @@
             background: rgba(26, 11, 46, 0.7);
             border: 2px solid #ff2a85;
             border-radius: 24px;
-            padding: 30px 20px 20px 20px;
+            padding: 25px 20px 15px 20px;
             box-shadow: 0 0 25px rgba(255, 42, 133, 0.4);
             position: relative;
         }
         h1, h2 {
             color: #ff65a3;
             text-shadow: 0 0 10px rgba(255, 101, 163, 0.6);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            font-size: 20px;
         }
         p {
             color: #e2e8f0;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 18px;
         }
         .btn {
             background: linear-gradient(135deg, #ff2a85, #b91372);
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 14px 28px;
-            font-size: 16px;
+            padding: 12px 24px;
+            font-size: 15px;
             font-weight: 500;
             cursor: pointer;
             box-shadow: 0 0 15px rgba(255, 42, 133, 0.5);
             transition: 0.3s;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 8px;
             text-decoration: none;
             display: inline-block;
         }
@@ -75,9 +76,9 @@
             color: #ff65a3;
         }
         .cake-container {
-            width: 140px;
-            height: 140px;
-            margin: 20px auto;
+            width: 130px;
+            height: 130px;
+            margin: 15px auto;
             border-radius: 50%;
             border: 3px solid #ff2a85;
             display: flex;
@@ -85,7 +86,7 @@
             align-items: center;
             box-shadow: 0 0 20px rgba(255, 42, 133, 0.6);
             cursor: pointer;
-            font-size: 60px;
+            font-size: 55px;
             background: rgba(255, 42, 133, 0.1);
             transition: 0.2s;
         }
@@ -93,47 +94,47 @@
             transform: scale(0.95);
         }
         .photo-box {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.4);
             border: 1px dashed #ff2a85;
             border-radius: 12px;
-            padding: 8px;
-            margin-bottom: 12px;
-            height: 140px;
+            padding: 5px;
+            margin-bottom: 10px;
+            height: 125px;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
         }
         .photo-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* เปลี่ยนเป็น contain เพื่อให้รูปแสดงเต็มใบ ไม่โดนตัดขอบ */
+            border-radius: 6px;
         }
         textarea {
             width: 100%;
-            height: 100px;
+            height: 90px;
             background: rgba(11, 2, 26, 0.8);
             border: 2px solid #ff2a85;
             border-radius: 12px;
-            padding: 12px;
+            padding: 10px;
             color: white;
             font-size: 14px;
             resize: none;
             outline: none;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             box-shadow: inset 0 0 10px rgba(255, 42, 133, 0.2);
         }
         textarea::placeholder {
             color: #8b7a9e;
         }
         .footer-credit {
-            margin-top: 20px;
-            font-size: 12px;
+            margin-top: 15px;
+            font-size: 11px;
             color: #ff85b3;
             letter-spacing: 1px;
             border-top: 1px solid rgba(255, 42, 133, 0.2);
-            padding-top: 10px;
+            padding-top: 8px;
         }
         .page {
             display: none;
@@ -160,7 +161,7 @@
         <!-- หน้าที่ 1.5: หน้าตอนกดผิด (วันพุธ) -->
         <div id="page-wrong" class="page">
             <div class="card">
-                <h1 style="font-size: 36px;">😅</h1>
+                <h1 style="font-size: 32px;">😅</h1>
                 <h2>อุ๊ย! ผิดเต็มประตูเลย!</h2>
                 <p>วันนี้วันสำคัญของคนพิเศษนะ จะมาตอบวันพุธได้ยังไงเล่า ลองใหม่อีกทีซิ! 😆</p>
                 <button class="btn" onclick="nextPage('page-1')">🔄 กลับไปเลือกใหม่</button>
@@ -172,11 +173,11 @@
         <div id="page-2" class="page">
             <div class="card">
                 <h2>🎉 สุขสันต์วันเกิดน้อง! 🎂</h2>
-                <p>🎂 คลิกที่รูปเค้กครบ 3 ครั้งเพื่อเปิดรูปภาพ!<br>(คลิกแล้ว <span id="click-count">0</span>/3)</p>
-                <div class="cake-container" onclick="clickCake()">
+                <p>🎂 คลิกที่รูปเค้กให้ครบ 3 ครั้งเพื่อเปิดรูปภาพ!<br>(คลิกแล้ว <span id="click-count">0</span>/3)</p>
+                <div class="cake-container" id="cake-btn" onclick="clickCake()">
                     🎂
                 </div>
-                <p style="font-size: 13px; margin-top: 5px; color: #ffb3d1;">ขอให้ปีนี้เป็นปีที่แฮปปี้สุดๆ มีแต่เรื่องดีๆ เข้ามา สมหวังทุกอย่าง ร่างกายแข็งแรงนะ! ✨</p>
+                <p style="font-size: 12px; margin-top: 5px; color: #ffb3d1;">ขอให้ปีนี้เป็นปีที่แฮปปี้สุดๆ มีแต่เรื่องดีๆ เข้ามา สมหวังทุกอย่าง ร่างกายแข็งแรงนะ! ✨</p>
                 <div class="footer-credit">Website by Fluke</div>
             </div>
         </div>
@@ -190,7 +191,7 @@
                 <div class="photo-box"><img src="img2.jpg" alt="รูปน้อง 2"></div>
                 <div class="photo-box"><img src="img3.jpg" alt="รูปน้อง 3"></div>
 
-                <p style="font-size: 12px; margin: 5px 0 10px 0; color: #ffb3d1;">ขอให้ปีนี้เป็นปีที่แฮปปี้สุดๆ มีแต่เรื่องดีๆ เข้ามา สมหวังทุกอย่าง ร่างกายแข็งแรงนะ! ✨</p>
+                <p style="font-size: 11px; margin: 3px 0 8px 0; color: #ffb3d1;">ขอให้ปีนี้เป็นปีที่แฮปปี้สุดๆ มีแต่เรื่องดีๆ เข้ามา สมหวังทุกอย่าง ร่างกายแข็งแรงนะ! ✨</p>
                 <button class="btn" onclick="nextPage('page-4')">👈 ถัดไป</button>
                 <div class="footer-credit">Website by Fluke</div>
             </div>
@@ -203,7 +204,7 @@
                 <p>ประทับใจเว็บนี้แค่ไหน หรืออยากฝากข้อความอะไรถึงคนทำเว็บ พิมพ์บอกได้เลยนะ! (ถ้ามี)</p>
                 <textarea id="user-custom-msg" placeholder="พิมพ์ข้อความขอบคุณ หรือความรู้สึกตรงนี้เลย..."></textarea>
                 <button class="btn" onclick="sendToSheetDB()">✨ ส่งข้อความ</button>
-                <button class="btn btn-outline" style="margin-top: 8px;" onclick="nextPage('page-5')">ข้าม / เสร็จสิ้น</button>
+                <button class="btn btn-outline" style="margin-top: 6px;" onclick="nextPage('page-5')">ข้าม / เสร็จสิ้น</button>
                 <div class="footer-credit">Website by Fluke</div>
             </div>
         </div>
@@ -221,6 +222,7 @@
 
     <script>
         let cakeClicks = 0;
+        let isCompleted = false;
 
         function nextPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -232,11 +234,16 @@
         }
 
         function clickCake() {
+            if (isCompleted) return; // ล็อกไม่ให้คลิกเพิ่มถ้าครบ 3 ครั้งแล้ว
+
             cakeClicks++;
-            document.getElementById('click-count').innerText = cakeClicks;
+            if (cakeClicks <= 3) {
+                document.getElementById('click-count').innerText = cakeClicks;
+            }
             
-            if (cakeClicks >= 3) {
-                // ฟังก์ชันยิงพุต่อเนื่องนาน 3 วินาที
+            if (cakeClicks === 3) {
+                isCompleted = true; // ล็อกสถานะทันที ป้องกันกดเกิน
+                
                 let duration = 3 * 1000;
                 let end = Date.now() + duration;
 
@@ -259,7 +266,6 @@
                     }
                 }());
 
-                // หน่วงเวลาเล็กน้อย 3 วินาทีให้พุพ่นจบ แล้วค่อยเปลี่ยนไปหน้า 3
                 setTimeout(() => {
                     nextPage('page-3');
                 }, 3000);
@@ -275,7 +281,6 @@
             const now = new Date().toLocaleString('th-TH');
             const sheetDB_URL = 'https://sheetdb.io/api/v1/btn9738jtc53v';
 
-            // ส่งข้อมูลเข้า SheetDB (ช่อง A: message, ช่อง B: date)
             fetch(sheetDB_URL, {
                 method: 'POST',
                 headers: {
@@ -296,12 +301,12 @@
                 console.error("Error:", error);
             });
 
-            // ไปหน้าขอบคุณ
             nextPage('page-5');
         }
 
         function resetApp() {
             cakeClicks = 0;
+            isCompleted = false; // ปลดล็อกให้คลิกใหม่ได้เมื่อรีเซ็ตเว็บ
             document.getElementById('click-count').innerText = cakeClicks;
             document.getElementById('user-custom-msg').value = '';
             nextPage('page-1');

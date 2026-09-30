@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วันนี้วันอะไรนะ? - Happy Birthday 🎂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- นำเข้าไลบรารี Canvas Confetti สำหรับทำเอฟเฟกต์พุ -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Prompt', sans-serif;
+        }
+        body {
+            background-color: #0b021a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+            text-align: center;
+            z-index: 10;
+        }
+        .card {
+            background: rgba(26, 11, 46, 0.7);
+            border: 2px solid #ff2a85;
+            border-radius: 24px;
+            padding: 30px 20px 20px 20px;
+            box-shadow: 0 0 25px rgba(255, 42, 133, 0.4);
+            position: relative;
+        }
+        h1, h2 {
+            color: #ff65a3;
+            text-shadow: 0 0 10px rgba(255, 101, 163, 0.6);
+            margin-bottom: 15px;
+        }
+        p {
+            color: #e2e8f0;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #ff2a85, #b91372);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 42, 133, 0.5);
+            transition: 0.3s;
+            width: 100%;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 42, 133, 0.8);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ff2a85;
+            color: #ff65a3;
+        }
+        .cake-container {
+            width: 140px;
+            height: 140px;
+            margin: 20px auto;
+            border-radius: 50%;
+            border: 3px solid #ff2a85;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(255, 42, 133, 0.6);
+            cursor: pointer;
+            font-size: 60px;
+            background: rgba(255, 42, 133, 0.1);
+            transition: 0.2s;
+        }
+        .cake-container:active {
+            transform: scale(0.95);
+        }
+        .photo-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed #ff2a85;
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 12px;
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            background: rgba(11, 2, 26, 0.8);
+            border: 2px solid #ff2a85;
+            border-radius: 12px;
+            padding: 12px;
+            color: white;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+            margin-bottom: 15px;
+            box-shadow: inset 0 0 10px rgba(255, 42, 133, 0.2);
+        }
+        textarea::placeholder {
+            color: #8b7a9e;
+        }
+        .footer-credit {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #ff85b3;
+            letter-spacing: 1px;
+            border-top: 1px solid rgba(255, 42, 133, 0.2);
+            padding-top: 10px;
+        }
+        .page {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- หน้าที่ 1: วันนี้วันอะไรนะ? -->
+        <div id="page-1" class="page active">
+            <div class="card">
+                <h1>วันนี้วันอะไรนะ? 🤔</h1>
+                <p>ลองเลือกดูสิว่าวันนี้ วันสำคัญอะไรกันแน่...</p>
+                <button class="btn btn-outline" onclick="wrongAnswer()">วันพุธ</button>
+                <button class="btn" onclick="nextPage('page-2')">วันเกิดน้อง 🎉</button>
+                <div class="footer-credit">Website by Fluke</div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 1.5: หน้าตอนกดผิด (วันพุธ) -->
+        <div id="page-wrong" class="page">
+            <div class="card">
+                <h1 style="font-size: 36px;">😅</h1>
+                <h2>อุ๊ย! ผิดเต็มประตูเลย!</h2>
+                <p>วันนี้วันสำคัญของคนพิเศษนะ จะมาตอบวันพุธได้ยังไงเล่า ลองใหม่อีกทีซิ! 😆</p>
+                <button class="btn" onclick="nextPage('page-1')">🔄 กลับไปเลือกใหม่</button>
+                <div class="footer-credit">Website by Fluke</div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 2: สุขสันต์วันเกิดน้อง (คลิกเค้ก 3 ครั้ง) -->
+        <div id="page-2" class="page">
+            <div class="card">
+                <h2>🎉 สุขสันต์วันเกิดน้อง! 🎂</h2>
+                <p>🎂 คลิกที่รูปเค้กครบ 3 ครั้งเพื่อเปิดรูปภาพ!<br>(คลิกแล้ว <span id="click-count">0</span>/3)</p>
+                <div class="cake-container" onclick="clickCake()">
+                    🎂
+                </div>
+                <p style="font-size: 13px; margin-top: 5px; color: #ffb3d1;">ขอให้ปีนี้เป็นปีที่แฮปปี้สุดๆ มีแต่เรื่องดีๆ เข้ามา สมหวังทุกอย่าง ร่างกายแข็งแรงนะ! ✨</p>
+                <div class="footer-credit">Website by Fluke</div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 3: รูปภาพสุดอลังการ -->
+        <div id="page-3" class="page">
+            <div class="card">
+                <h2>✨ แท่น แท้น! รูปภาพสุดอลังการมาแล้ว! 🥳</h2>
+                
+                <div class="photo-box"><img src="img1.jpg" alt="รูปน้อง 1"></div>
+                <div class="photo-box"><img src="img2.jpg" alt="รูปน้อง 2"></div>
+                <div class="photo-box"><img src="img3.jpg" alt="รูปน้อง 3"></div>
+
+                <p style="font-size: 12px; margin: 5px 0 10px 0; color: #ffb3d1;">ขอให้ปีนี้เป็นปีที่แฮปปี้สุดๆ มีแต่เรื่องดีๆ เข้ามา สมหวังทุกอย่าง ร่างกายแข็งแรงนะ! ✨</p>
+                <button class="btn" onclick="nextPage('page-4')">👈 ถัดไป</button>
+                <div class="footer-credit">Website by Fluke</div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 4: ถึงคนทำเว็บไซต์ (ส่งข้อมูลเข้า SheetDB) -->
+        <div id="page-4" class="page">
+            <div class="card">
+                <h2>💌 ถึงคนทำเว็บไซต์ 💻</h2>
+                <p>ประทับใจเว็บนี้แค่ไหน หรืออยากฝากข้อความอะไรถึงคนทำเว็บ พิมพ์บอกได้เลยนะ! (ถ้ามี)</p>
+                <textarea id="user-custom-msg" placeholder="พิมพ์ข้อความขอบคุณ หรือความรู้สึกตรงนี้เลย..."></textarea>
+                <button class="btn" onclick="sendToSheetDB()">✨ ส่งข้อความ</button>
+                <button class="btn btn-outline" style="margin-top: 8px;" onclick="nextPage('page-5')">ข้าม / เสร็จสิ้น</button>
+                <div class="footer-credit">Website by Fluke</div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 5: ขอบคุณมากๆ นะ! -->
+        <div id="page-5" class="page">
+            <div class="card">
+                <h2>🎉 ขอบคุณมากๆ นะ! ✨</h2>
+                <p>ขอให้วันนี้และทุกๆ วันเป็นวันที่มีความสุขมากๆ ยิ้มเยอะๆ นะ! 😊🚀</p>
+                <button class="btn" onclick="resetApp()">🏠 กลับสู่หน้าหลัก</button>
+                <div class="footer-credit">Website by Fluke</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cakeClicks = 0;
+
+        function nextPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function wrongAnswer() {
+            nextPage('page-wrong');
+        }
+
+        function clickCake() {
+            cakeClicks++;
+            document.getElementById('click-count').innerText = cakeClicks;
+            
+            if (cakeClicks >= 3) {
+                // ฟังก์ชันยิงพุต่อเนื่องนาน 3 วินาที
+                let duration = 3 * 1000;
+                let end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 7,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 }
+                    });
+                    confetti({
+                        particleCount: 7,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 }
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+
+                // หน่วงเวลาเล็กน้อย 3 วินาทีให้พุพ่นจบ แล้วค่อยเปลี่ยนไปหน้า 3
+                setTimeout(() => {
+                    nextPage('page-3');
+                }, 3000);
+            }
+        }
+
+        function sendToSheetDB() {
+            let msg = document.getElementById('user-custom-msg').value.trim();
+            if(!msg) {
+                msg = "ประทับใจเว็บนี้มากเลย ขอบคุณนะนาย! 🥳";
+            }
+
+            const now = new Date().toLocaleString('th-TH');
+            const sheetDB_URL = 'https://sheetdb.io/api/v1/btn9738jtc53v';
+
+            // ส่งข้อมูลเข้า SheetDB (ช่อง A: message, ช่อง B: date)
+            fetch(sheetDB_URL, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: [
+                        { "message": msg, "date": now }
+                    ]
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Success:", data);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+
+            // ไปหน้าขอบคุณ
+            nextPage('page-5');
+        }
+
+        function resetApp() {
+            cakeClicks = 0;
+            document.getElementById('click-count').innerText = cakeClicks;
+            document.getElementById('user-custom-msg').value = '';
+            nextPage('page-1');
+        }
+    </script>
+</body>
+</html>

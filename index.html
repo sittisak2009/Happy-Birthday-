@@ -96,7 +96,7 @@
 
         /* โซนเลื่อนดูรูปภาพ (Gallery Scroll) */
         .gallery-container {
-            max-height: 280px;
+            max-height: 260px;
             overflow-y: auto;
             padding-right: 5px;
             margin-bottom: 12px;
@@ -153,6 +153,32 @@
             line-height: 1.6;
             text-align: center;
             box-shadow: inset 0 0 10px rgba(255, 42, 133, 0.15);
+        }
+
+        /* กล่องสุ่มของขวัญ */
+        .gift-box {
+            background: rgba(255, 42, 133, 0.1);
+            border: 2px dashed #ff65a3;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .gift-box:hover {
+            background: rgba(255, 42, 133, 0.2);
+        }
+        #gift-result {
+            font-size: 14px;
+            color: #ffe6f0;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-bottom: 12px;
         }
 
         textarea {
@@ -226,24 +252,20 @@
             </div>
         </div>
 
-        <!-- หน้าที่ 3: รูปภาพสุดอลังการ (เลื่อนดูรูป + คำอวยพรอยู่ล่างสุดของรูป) -->
+        <!-- หน้าที่ 3: รูปภาพความทรงจำ + คำอวยพรล่างสุด -->
         <div id="page-3" class="page">
             <div class="card">
                 <h2>✨ แกลเลอรีความทรงจำ 🥳</h2>
                 
-                <!-- โซนเลื่อนรูป (รวมคำอวยพรไว้ข้างในด้านล่างสุด) -->
                 <div class="gallery-container">
-                    <!-- รูปที่ 1 -->
                     <div class="photo-item">
                         <div class="photo-box"><img src="img1.jpg" alt="รูปที่ 1"></div>
                         <p class="photo-caption">เบียวเกินนะ 😅</p>
                     </div>
-                    <!-- รูปที่ 2 -->
                     <div class="photo-item">
                         <div class="photo-box"><img src="img2.jpg" alt="รูปที่ 2"></div>
                         <p class="photo-caption">เอามือออกหน่อย 👍🏻</p>
                     </div>
-                    <!-- รูปที่ 3 -->
                     <div class="photo-item">
                         <div class="photo-box"><img src="img3.jpg" alt="รูปที่ 3"></div>
                         <p class="photo-caption">คนนี้เขามีเทสนะ ✨</p>
@@ -255,7 +277,21 @@
                     </div>
                 </div>
 
-                <button class="btn" onclick="nextPage('page-4')">👈 ถัดไป</button>
+                <button class="btn" onclick="nextPage('page-gift')">🎁 ไปสุ่มของขวัญกันต่อ</button>
+                <div class="footer-credit">Website by Fluke</div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 4.5: มินิเกมสุ่มของขวัญ / คำอวยพรพิเศษ -->
+        <div id="page-gift" class="page">
+            <div class="card">
+                <h2>🎁 สุ่มคำอวยพรพิเศษ!</h2>
+                <p>กดเปิดกล่องสุ่มเพื่อลุ้นรับคำอวยพรลับประจำวันเกิดปีนี้กัน!</p>
+                
+                <div id="gift-result">🎁 กดปุ่มด้านล่างเพื่อสุ่มของขวัญเลย!</div>
+                
+                <button class="btn" onclick="openGift()">✨ สุ่มเปิดกล่องของขวัญ</button>
+                <button class="btn btn-outline" style="margin-top: 8px;" onclick="nextPage('page-4')">💌 ไปหน้าฝากข้อความต่อ ➔</button>
                 <div class="footer-credit">Website by Fluke</div>
             </div>
         </div>
@@ -286,6 +322,26 @@
     <script>
         let cakeClicks = 0;
         let isCompleted = false;
+
+        const giftMessages = [
+            "🎉 แจ็คพอต! ปีนี้ขอให้เงินทองไหลมาเทมา ไม่ต้องปวดหลังอีกต่อไป!",
+            "🍔 ได้รับตั๋วบุฟเฟต์ฟรีในจินตนาการ กินเท่าไราน้ำหนักก็ไม่ขึ้น!",
+            "✨ โชคดีคูณสอง! คิดหวังสิ่งใดขอให้สมปรารถนาทุกประการแบบ 300%!",
+            "🚀 พลังงานความเบียวคอมโบเบรกแตก! ปีนี้ขอให้ทำโปรเจกต์และเกมสำเร็จตามฝัน!",
+            "💖 ได้รับความรักและรอยยิ้มจากคนรอบข้างแบบล้นหลาม สุขสันต์วันเกิดนะ!"
+        ];
+
+        function openGift() {
+            const randomIndex = Math.floor(Math.random() * giftMessages.length);
+            document.getElementById('gift-result').innerText = giftMessages[randomIndex];
+            
+            // ยิงพลุเล็กๆ ตอนสุ่มได้
+            confetti({
+                particleCount: 30,
+                spread: 60,
+                origin: { y: 0.6 }
+            });
+        }
 
         function nextPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -372,8 +428,10 @@
             isCompleted = false;
             document.getElementById('click-count').innerText = cakeClicks;
             document.getElementById('user-custom-msg').value = '';
+            document.getElementById('gift-result').innerText = '🎁 กดปุ่มด้านล่างเพื่อสุ่มของขวัญเลย!';
             nextPage('page-1');
         }
     </script>
 </body>
-</html>
+    </html>
+            

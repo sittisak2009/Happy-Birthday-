@@ -141,6 +141,20 @@
             text-shadow: 0 0 5px rgba(255, 42, 133, 0.3);
         }
 
+        /* กล่องคำอวยพรอยู่ล่างสุดในโซนเลื่อนรูป */
+        .wishes-box {
+            background: rgba(255, 42, 133, 0.08);
+            border: 1px solid #ff2a85;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #ffe6f0;
+            line-height: 1.6;
+            text-align: center;
+            box-shadow: inset 0 0 10px rgba(255, 42, 133, 0.15);
+        }
+
         textarea {
             width: 100%;
             height: 90px;
@@ -212,12 +226,12 @@
             </div>
         </div>
 
-        <!-- หน้าที่ 3: รูปภาพสุดอลังการ (แบบเลื่อนดูได้ & มีข้อความใหม่ตามสั่ง) -->
+        <!-- หน้าที่ 3: รูปภาพสุดอลังการ (เลื่อนดูรูป + คำอวยพรอยู่ล่างสุดของรูป) -->
         <div id="page-3" class="page">
             <div class="card">
                 <h2>✨ แกลเลอรีความทรงจำ 🥳</h2>
                 
-                <!-- โซนเลื่อนรูป -->
+                <!-- โซนเลื่อนรูป (รวมคำอวยพรไว้ข้างในด้านล่างสุด) -->
                 <div class="gallery-container">
                     <!-- รูปที่ 1 -->
                     <div class="photo-item">
@@ -233,6 +247,11 @@
                     <div class="photo-item">
                         <div class="photo-box"><img src="img3.jpg" alt="รูปที่ 3"></div>
                         <p class="photo-caption">คนนี้เขามีเทสนะ ✨</p>
+                    </div>
+
+                    <!-- คำอวยพรอยู่ล่างสุดในกล่องเลื่อน -->
+                    <div class="wishes-box">
+                        อายุเพิ่มอีกปีแล้วนะ ขอให้ปีนี้และปีหน้าๆ มีแต่ความสุข สมหวังกับสิ่งที่คิดไว้ว่าอยากทำ อยากได้ ยิ้มเยอะๆ นะ สุขสันต์วันเกิดนะ น้องที่เบียว~~~ 🎂✨
                     </div>
                 </div>
 

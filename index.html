@@ -48,7 +48,7 @@
             color: #e2e8f0;
             font-size: 14px;
             line-height: 1.5;
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
         .btn {
             background: linear-gradient(135deg, #ff2a85, #b91372);
@@ -93,24 +93,55 @@
         .cake-container:active {
             transform: scale(0.95);
         }
-        .photo-box {
+
+        /* โซนเลื่อนดูรูปภาพ (Gallery Scroll) */
+        .gallery-container {
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-bottom: 12px;
+        }
+        /* แต่งแถบเลื่อน (Scrollbar) ให้เข้ากับธีมนีออน */
+        .gallery-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .gallery-container::-webkit-scrollbar-track {
+            background: rgba(11, 2, 26, 0.5);
+            border-radius: 10px;
+        }
+        .gallery-container::-webkit-scrollbar-thumb {
+            background: #ff2a85;
+            border-radius: 10px;
+        }
+
+        .photo-item {
             background: rgba(0, 0, 0, 0.4);
             border: 1px dashed #ff2a85;
             border-radius: 12px;
-            padding: 5px;
-            margin-bottom: 10px;
-            height: 125px;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+        .photo-box {
+            height: 140px;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            margin-bottom: 8px;
         }
         .photo-box img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain; /* เปลี่ยนเป็น contain เพื่อให้รูปแสดงเต็มใบ ไม่โดนตัดขอบ */
+            object-fit: contain;
             border-radius: 6px;
         }
+        .photo-caption {
+            font-size: 13px;
+            color: #ffb3d1;
+            margin: 0;
+            text-shadow: 0 0 5px rgba(255, 42, 133, 0.3);
+        }
+
         textarea {
             width: 100%;
             height: 90px;
@@ -129,7 +160,7 @@
             color: #8b7a9e;
         }
         .footer-credit {
-            margin-top: 15px;
+            margin-top: 12px;
             font-size: 11px;
             color: #ff85b3;
             letter-spacing: 1px;
@@ -182,16 +213,30 @@
             </div>
         </div>
 
-        <!-- หน้าที่ 3: รูปภาพสุดอลังการ -->
+        <!-- หน้าที่ 3: รูปภาพสุดอลังการ (แบบเลื่อนดูได้ & มีข้อความใต้ภาพ) -->
         <div id="page-3" class="page">
             <div class="card">
-                <h2>✨ แท่น แท้น! รูปภาพสุดอลังการมาแล้ว! 🥳</h2>
+                <h2>✨ แกลเลอรีความทรงจำ 🥳</h2>
                 
-                <div class="photo-box"><img src="img1.jpg" alt="รูปน้อง 1"></div>
-                <div class="photo-box"><img src="img2.jpg" alt="รูปน้อง 2"></div>
-                <div class="photo-box"><img src="img3.jpg" alt="รูปน้อง 3"></div>
+                <!-- โซนเลื่อนรูป -->
+                <div class="gallery-container">
+                    <!-- รูปที่ 1 -->
+                    <div class="photo-item">
+                        <div class="photo-box"><img src="img1.jpg" alt="รูปที่ 1"></div>
+                        <p class="photo-caption">💖 แคปชั่นรูปที่ 1: สวยน่ารักสดใสที่สุด!</p>
+                    </div>
+                    <!-- รูปที่ 2 -->
+                    <div class="photo-item">
+                        <div class="photo-box"><img src="img2.jpg" alt="รูปที่ 2"></div>
+                        <p class="photo-caption">✨ แคปชั่นรูปที่ 2: ยิ้มทีโลกละลายเลย!</p>
+                    </div>
+                    <!-- รูปที่ 3 -->
+                    <div class="photo-item">
+                        <div class="photo-box"><img src="img3.jpg" alt="รูปที่ 3"></div>
+                        <p class="photo-caption">🚀 แคปชั่นรูปที่ 3: ขอให้มีความสุขมากๆ นะ!</p>
+                    </div>
+                </div>
 
-                <p style="font-size: 11px; margin: 3px 0 8px 0; color: #ffb3d1;">ขอให้ปีนี้เป็นปีที่แฮปปี้สุดๆ มีแต่เรื่องดีๆ เข้ามา สมหวังทุกอย่าง ร่างกายแข็งแรงนะ! ✨</p>
                 <button class="btn" onclick="nextPage('page-4')">👈 ถัดไป</button>
                 <div class="footer-credit">Website by Fluke</div>
             </div>
@@ -234,7 +279,7 @@
         }
 
         function clickCake() {
-            if (isCompleted) return; // ล็อกไม่ให้คลิกเพิ่มถ้าครบ 3 ครั้งแล้ว
+            if (isCompleted) return;
 
             cakeClicks++;
             if (cakeClicks <= 3) {
@@ -242,7 +287,7 @@
             }
             
             if (cakeClicks === 3) {
-                isCompleted = true; // ล็อกสถานะทันที ป้องกันกดเกิน
+                isCompleted = true;
                 
                 let duration = 3 * 1000;
                 let end = Date.now() + duration;
@@ -306,7 +351,7 @@
 
         function resetApp() {
             cakeClicks = 0;
-            isCompleted = false; // ปลดล็อกให้คลิกใหม่ได้เมื่อรีเซ็ตเว็บ
+            isCompleted = false;
             document.getElementById('click-count').innerText = cakeClicks;
             document.getElementById('user-custom-msg').value = '';
             nextPage('page-1');
